@@ -3,119 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>炸鸡汉堡日</title>
+    <title>相恋一周年快乐 🌹</title>
     <style>
         body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: radial-gradient(circle at center, #ff7e5f, #feb47b);
             margin: 0;
-            overflow: hidden;
-            background-color: #2a2a2a;
-            font-family: 'Microsoft YaHei', sans-serif;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        .container {
+            text-align: center;
+            max-width: 800px;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
-        .chicken {
-            background-image: url('https://example.com/chicken.jpg');
-            background-size: cover;
+
+        h1 {
+            color: #d32f2f;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 2s ease;
         }
-        
-        .burger {
-            background-image: url('https://example.com/burger.jpg');
-            background-size: cover;
+
+        .countdown {
             position: relative;
-            top: 20%;
-            left: 30%;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #fff3f3;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .countdown::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: #d32f2f;
+            border-radius: 50%;
+        }
+
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #feb47b;
+            border-radius: 50%;
+            animation: beat 1s infinite;
+        }
+
+        .heart::after {
+            content: "";
+            position: absolute;
             width: 70%;
             height: 70%;
-            z-index: -2;
-        }
-
-        .firework {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: #ff6b35;
+            background: #feb47b;
             border-radius: 50%;
-            animation: firework 2s linear infinite;
+            top: 15%;
+            left: 15%;
+            opacity: 0.7;
         }
 
-        .text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 3em;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px #000;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes firework {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(3) rotate(360deg); }
-            100% { transform: scale(5); opacity: 0; }
+        @keyframes beat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes sparkle {
-            0% { opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { opacity: 0; }
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .container { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 背景图层 -->
-    <div class="background chicken"></div>
-    <div class="background burger"></div>
-
-    <!-- 烟花容器 -->
-    <div id="fireworks"></div>
-
-    <!-- 中央文字 -->
-    <div class="text">今天星期四，V我50</div>
+    <div class="container">
+        <h1>相恋一周年快乐！❤️</h1>
+        
+        <div class="countdown">
+            <div class="heart"></div>
+            <div class="heart" style="left: 20px;"></div>
+            
+            <p>回顾我们的爱情：</p>
+            <ul>
+                <li>🔥 2024年3月2日恋爱</li>
+                <li>💫 2024年8月12日订婚</li>
+                <li>🌈 2025年1月11日确定孕育了新生命</li>
+                <li>👫 2025年2月7日正式结婚</li>
+            </ul>
+        </div>
+    </div>
 
     <script>
-        // 自动生成烟花特效
-        function createFirework() {
-            const firework = document.createElement('div');
-            firework.className = 'firework';
-            
-            // 随机位置
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * -window.innerHeight;
-            
-            firework.style.left = x + 'px';
-            firework.style.top = y + 'px';
-            
-            // 添加闪烁特效
-            const sparkle = document.createElement('div');
-            sparkle.className = 'firework';
-            sparkle.style.backgroundColor = '#fff';
-            sparkle.style.left = x + 'px';
-            sparkle.style.top = y + 'px';
-            sparkle.style.animationDelay = Math.random() * 0.5 + 's';
-            
-            document.getElementById('fireworks').appendChild(firework);
-            document.getElementById('fireworks').appendChild(sparkle);
-            
-            // 移除旧烟花
-            setTimeout(() => {
-                firework.remove();
-                sparkle.remove();
-            }, 2500);
-        }
-
-        // 初始烟花
-        for (let i = 0; i < 20; i++) createFirework();
-
-        // 定时添加新烟花
-        setInterval(createFirework, 2000);
+        // 心动动画
+        const hearts = document.querySelectorAll('.heart');
+        hearts.forEach(heart => {
+            setInterval(() => {
+                heart.style.transform = `scale(${Math.random() * 1.2 + 0.8})`;
+            }, 1500);
+        });
     </script>
 </body>
 </html>
