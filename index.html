@@ -2,120 +2,63 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>相恋一周年快乐 🌹</title>
+    <title>相恋一周年纪念</title>
     <style>
         body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
-            background: radial-gradient(circle at center, #ff7e5f, #feb47b);
             margin: 0;
-            padding: 2rem;
-            min-height: 100vh;
+            height: 100vh;
+            background: linear-gradient(45deg, #FF0000, #FF4500);
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            font-family: 'Great Vibes', cursive;
         }
-
         .container {
             text-align: center;
-            max-width: 800px;
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #d32f2f;
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            animation: fadeIn 2s ease;
-        }
-
-        .countdown {
+            color: #FFFFFF;
             position: relative;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: #fff3f3;
-            border-radius: 10px;
-            display: inline-block;
         }
-
-        .countdown::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 20px;
-            height: 20px;
-            background: #d32f2f;
-            border-radius: 50%;
-        }
-
-        .heart {
+        .flower {
             position: absolute;
             width: 50px;
             height: 50px;
-            background: #feb47b;
-            border-radius: 50%;
-            animation: beat 1s infinite;
+            background: url('https://love99you.github.io/rose/rose.png') no-repeat center;
+            background-size: cover;
+            animation: bloom 5s linear infinite;
         }
-
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 70%;
-            height: 70%;
-            background: #feb47b;
-            border-radius: 50%;
-            top: 15%;
-            left: 15%;
-            opacity: 0.7;
+        @keyframes bloom {
+            0% { transform: translateY(100vh) scale(0); }
+            100% { transform: translateY(0) scale(1); }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes beat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 2.5rem; }
-            .container { padding: 1rem; }
+        .date-text {
+            font-size: 2.5em;
+            margin: 20px;
+            position: relative;
+            z-index: 2;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>相恋一周年快乐！❤️</h1>
-        
-        <div class="countdown">
-            <div class="heart"></div>
-            <div class="heart" style="left: 20px;"></div>
-            
-            <p>回顾我们的爱情：</p>
-            <ul>
-                <li>🔥 2024年3月2日恋爱</li>
-                <li>💫 2024年8月12日订婚</li>
-                <li>🌈 2025年1月11日确定孕育了新生命</li>
-                <li>👫 2025年2月7日正式结婚</li>
-            </ul>
+        <div class="date-text">
+            我们<br>
+            2024年3月2日 相爱<br>
+            2024年8月12日 订婚<br>
+            2025年2月7日 正式结婚<br>
         </div>
+        <!-- 动态鲜花特效 -->
+        <script>
+            const container = document.querySelector('.container');
+            for (let i = 0; i < 50; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.top = `${Math.random() * 100}vh`;
+                container.appendChild(flower);
+            }
+        </script>
     </div>
-
-    <script>
-        // 心动动画
-        const hearts = document.querySelectorAll('.heart');
-        hearts.forEach(heart => {
-            setInterval(() => {
-                heart.style.transform = `scale(${Math.random() * 1.2 + 0.8})`;
-            }, 1500);
-        });
-    </script>
+    <audio src="https://example.com/love-song.mp3" autoplay loop></audio>
 </body>
 </html>
