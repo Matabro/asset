@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,56 +7,117 @@
         body {
             margin: 0;
             height: 100vh;
-            background: linear-gradient(45deg, #FF0000, #FF4500);
+            background: #FFC0CB; /* 粉红色背景 */
+            background: linear-gradient(45deg, #FFC0CB, #FFB6C1); /* 渐变效果 */
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             font-family: 'Great Vibes', cursive;
+            filter: brightness(100%);
+            position: relative;
+            z-index: 1; /* 确保背景在最底层 */
         }
         .container {
             text-align: center;
             color: #FFFFFF;
-            position: relative;
-        }
-        .flower {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: url('https://love99you.github.io/rose/rose.png') no-repeat center;
-            background-size: cover;
-            animation: bloom 5s linear infinite;
-        }
-        @keyframes bloom {
-            0% { transform: translateY(100vh) scale(0); }
-            100% { transform: translateY(0) scale(1); }
+            z-index: 2;
         }
         .date-text {
             font-size: 2.5em;
             margin: 20px;
-            position: relative;
-            z-index: 2;
+        }
+        /* 烟花特效Canvas样式 */
+        #fireworksCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 点击穿透 */
+            z-index: 0; /* 确保Canvas在背景层 */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="date-text">
-            我们<br>
-            2024年3月2日 相爱<br>
-            2024年8月12日 订婚<br>
-            2025年2月7日 正式结婚<br>
+            我们已相爱一周年啦<br>
+            🔥2024年3月2日 相爱<br>
+            💫2024年8月12日 订婚<br>
+            👫2025年2月7日 正式结婚<br>
         </div>
-        <!-- 动态鲜花特效 -->
-        <script>
-            const container = document.querySelector('.container');
-            for (let i = 0; i < 50; i++) {
-                const flower = document.createElement('div');
-                flower.className = 'flower';
-                flower.style.left = `${Math.random() * 100}vw`;
-                flower.style.top = `${Math.random() * 100}vh`;
-                container.appendChild(flower);
-            }
-        </script>
     </div>
-    <audio src="https://example.com/love-song.mp3" autoplay loop></audio>
+    <!-- 烟花特效 -->
+    <canvas id="fireworksCanvas"></canvas>
+    <script>
+        // 烟花粒子系统（优化版）
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = Math.random() * 3 + 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8, // 增加速度范围
+                    y: (Math.random() - 0.5) * 8 + 4 // 增加速度范围
+                };
+                this.alpha = 1;
+                this.gravity = 0.07;
+                this.friction = 0.93;
+            }
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.draw(ctx);
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.02; // 加速透明度衰减
+            }
+        }
+
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                if (particle.alpha > 0) {
+                    particle.update();
+                } else {
+                    particles.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // 点击触发烟花
+        canvas.addEventListener('click', (e) => {
+            for (let i = 0; i < 100; i++) { // 增加粒子数量
+                particles.push(new Particle(e.clientX, e.clientY));
+            }
+        });
+
+        let particles = [];
+        animate();
+
+        // 自动触发烟花（可选）
+        setTimeout(() => {
+            canvas.dispatchEvent(new MouseEvent('click'));
+        }, 1000);
+    </script>
+</body>
+</html>
